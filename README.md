@@ -25,3 +25,12 @@ pytest 8.3.5
 El archivo debe quedar asi de acuero a lo que requiere nuestro software:
 pygame==2.5.0
 pytest==8.3.5
+
+
+Ejecutar el script
+Cada vez que agregues un nuevo archivo Python, ejecuta este script:
+
+python generate_tests.py
+
+Despues de todos los cambios el flujo de trabajo ya funciona
+solo se ejecuta pytest y el corre las acciones del workflows
