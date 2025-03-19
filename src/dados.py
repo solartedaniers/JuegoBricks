@@ -18,7 +18,7 @@ def determinar_ganador(jugador1, jugador2):
     elif puntaje1 < puntaje2:
         print(f"¡{jugador2} gana!")
     else:
-        print("¡Fue un Empate!")
+        print("¡Empate!")
 
 # Juego
 determinar_ganador("Jugador 1", "Jugador 2")
