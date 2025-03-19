@@ -80,7 +80,7 @@ def test_determinar_ganador_jugador2(monkeypatch, capsys):
 
     monkeypatch.setattr(random, "randint", mock_randint)
 
-    determinar_ganador("Jugador # 1", "Jugador # 2")
+    determinar_ganador("Jugador 1", "Jugador 2")
 
     captured = capsys.readouterr()
     

@@ -1,4 +1,4 @@
-name: CI - Ejecución de Pruebas Unitarias con Pytest (🧪)
+name: CI - Ejecución de Pruebas Unitarias con Pytest
 run-name: Ejecutar pruebas unitarias con Pytest en Python (🧪)
 
 on:
@@ -43,15 +43,4 @@ jobs:
           name: pytest-report-html
           path: report.html
 
-      - name: 🚀 Notificar en Pull Request sobre nueva prueba generada
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-              github.issues.createComment({
-                issue_number: context.payload.pull_request.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: "⚠️ Se ha generado un nuevo template de prueba unitaria. **Por favor, revisa y ejecuta las pruebas antes de continuar con la integración.** 🚀"
-              })
+
