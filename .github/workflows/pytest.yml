@@ -31,7 +31,7 @@ jobs:
         run: python generate_tests.py
 
       - name: 🧪 Ejecutar pruebas unitarias con Pytest
-        run: PYTHONPATH=. pytest --junitxml=report.xml
+        run: PYTHONPATH=. pytest -v --disable-warnings --junitxml=report.xml
 
       - name: 🚀 Notificar en Pull Request sobre nueva prueba generada
         if: github.event_name == 'pull_request'
