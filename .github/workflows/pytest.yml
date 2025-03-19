@@ -38,7 +38,7 @@ jobs:
         run: PYTHONPATH=. pytest -v --disable-warnings --html=report.html
 
       - name: 🖨️ Convertir reporte HTML a PDF
-        run: python -c "import pdfkit; pdfkit.from_file('report.html', 'report.pdf')"
+        run: python -c "import pdfkit; pdfkit.from_file('report.html', 'report.pdf', configuration=pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf'))"
 
       - name: 🚀 Notificar en Pull Request sobre nueva prueba generada
         if: github.event_name == 'pull_request'
