@@ -12,6 +12,10 @@ mainSurface = pygame.display.set_mode((800, 600))
 pygame.display.set_caption('Bricks - Calidad de Software')
 black = pygame.Color(0, 0, 0)
 
+# Directorio base del script
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+IMAGES_DIR = os.path.join(BASE_DIR, "images")  # Ruta correcta de imágenes
+
 # ==============================
 # 2. Función para Crear Ladrillos
 # ==============================
@@ -32,12 +36,13 @@ def createBricks(rows, cols):
 # 3. Lógica Principal del Juego
 # ==============================
 def main_loop():
-    bat = pygame.image.load('bat.png')
+    # Cargar imágenes con rutas dinámicas
+    bat = pygame.image.load(os.path.join(IMAGES_DIR, "bat.png"))
     playerY = 540
     batRect = bat.get_rect()
     mousex, mousey = (0, playerY)             
 
-    ball = pygame.image.load('ball.png')
+    ball = pygame.image.load(os.path.join(IMAGES_DIR, "ball.png"))
     ballRect = ball.get_rect()
     ballStartY = 200
     ballSpeed = 3
@@ -47,16 +52,28 @@ def main_loop():
     ballRect.topleft = (bx, by)
 
     bricks = createBricks(5, 10)
-    brick = pygame.image.load('brick.png')
+    brick = pygame.image.load(os.path.join(IMAGES_DIR, "brick.png"))
 
     while True:
         mainSurface.fill(black)
 
+        # Dibujar ladrillos y verificar colisión con la bola
+        bricks_to_remove = []
         for b in bricks:
             mainSurface.blit(brick, b)
+            if ballRect.colliderect(b):  # Detectar colisión con la bola
+                bricks_to_remove.append(b)  # Marcar ladrillo para eliminar
+                sy *= -1  # Invertir dirección vertical de la bola
+        
+        # Eliminar los ladrillos que han sido impactados
+        for b in bricks_to_remove:
+            bricks.remove(b)
+
+        # Dibujar la bola y la paleta
         mainSurface.blit(ball, ballRect)
         mainSurface.blit(bat, batRect)
 
+        # Manejo de eventos
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -70,11 +87,13 @@ def main_loop():
             elif event.type == MOUSEBUTTONUP and not ballServed:
                 ballServed = True
 
+        # Movimiento de la bola
         if ballServed:
             bx += sx
             by += sy
             ballRect.topleft = (bx, by)
 
+        # Colisiones con los bordes
         if by <= 0:
             sy *= -1
         elif by >= 600 - 8:
@@ -87,6 +106,7 @@ def main_loop():
         if bx <= 0 or bx >= 800 - 8:
             sx *= -1
 
+        # Colisión con la paleta
         if ballRect.colliderect(batRect):
             sy *= -1
 

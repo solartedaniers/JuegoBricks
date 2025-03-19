@@ -1,20 +1,20 @@
 import os
 
-# Carpeta donde estarán los archivos de código
-SOURCE_DIR = "."
+# Carpeta donde estarán los archivos fuente
+SOURCE_DIR = "src"
 # Carpeta donde se guardarán las pruebas
 TEST_DIR = "tests"
 
 # Código base de prueba para cada archivo detectado
 TEST_TEMPLATE = """import pytest
-from {module} import *
+from src.{module} import *  # Importa el módulo desde el paquete src
 
 def test_placeholder():
     assert True  # TODO: Reemplazar con pruebas reales
 """
 
 def generate_test_file(module_name):
-    """Genera un archivo de prueba unitaria para un módulo dado."""
+    """Genera un archivo de prueba unitaria para un módulo dado dentro de src/."""
     test_file = os.path.join(TEST_DIR, f"test_{module_name}.py")
     
     # Si el archivo de prueba ya existe, no hacer nada
@@ -32,13 +32,13 @@ def generate_test_file(module_name):
     print(f"✅ Generado: {test_file}")
 
 def main():
-    """Detecta nuevos archivos en el proyecto y genera pruebas automáticamente."""
+    """Detecta nuevos archivos en src/ y genera pruebas automáticamente en tests/."""
     # Crear la carpeta de pruebas si no existe
     os.makedirs(TEST_DIR, exist_ok=True)
 
-    # Buscar archivos Python en la raíz del proyecto (excepto '__init__.py' y archivos en 'tests/')
+    # Buscar archivos Python dentro de src/ (excepto '__init__.py')
     for filename in os.listdir(SOURCE_DIR):
-        if filename.endswith(".py") and filename not in ["generate_tests.py", "__init__.py"]:
+        if filename.endswith(".py") and filename not in ["__init__.py"]:
             module_name = filename[:-3]  # Eliminar la extensión ".py"
             generate_test_file(module_name)
 
