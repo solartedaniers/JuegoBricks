@@ -1,4 +1,5 @@
-  name: Run Pytest
+  name: CI - Pruebas Unitarias Run Pytest
+  run-name: Run Pytest con Python
   on:
     push:
       branches:
@@ -27,6 +28,9 @@
 
         - name: Run Pytest
           run: PYTHONPATH=. pytest --junitxml=report.xml
+
+        - name: Generar Template Prueba Unitaria
+          run: python3 generate_test.py
 
         - name: Upload Test Report
           uses: actions/upload-artifact@v4
