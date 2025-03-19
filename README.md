@@ -1,36 +1,67 @@
-Se instalo lo siguiente
+# 🧪 Pruebas Unitarias con Pytest en JuegoBricks
 
+## 📦 Instalación de Dependencias
+
+Ejecuta los siguientes comandos para instalar las herramientas necesarias:
+
+```bash
 pip install pytest
 pip install pygame
-Se activo la instalacion de GitHub Actions al crear el directorio: .github/workflows/pytest.yml
+```
 
+---
 
-Comando para ejecutar pruebas:
+## ⚙️ Configuración de GitHub Actions
+
+Se activó la ejecución automática de pruebas unitarias en **GitHub Actions** al crear el archivo de configuración:
+
+📂 **Ubicación:**  
+`.github/workflows/pytest.yml`
+
+---
+
+## 🚀 Ejecutar Pruebas Unitarias
+
+Para ejecutar las pruebas unitarias manualmente, usa el siguiente comando:
+
+```bash
 PYTHONPATH=. pytest -v --disable-warnings
+```
 
-Deberia funcionar con: pytest -v --disable-warnings
+---
 
-En el archivo pytest.ini lo configuramos para negar algun archivo que ya no queremos que entre a pruebas unitarias
+## ❌ Exclusión de Archivos en Pytest
+
+Si deseas **excluir archivos específicos** de las pruebas unitarias, configura el archivo `pytest.ini` de la siguiente manera:
+
+📂 **Archivo:** `pytest.ini`
+```ini
 [pytest]
 norecursedirs = tests/excluded_tests
 addopts = --ignore=tests/test_bricks.py
+```
+- `norecursedirs`: Evita que pytest recorra ciertos directorios.
+- `addopts --ignore`: Ignora archivos específicos al ejecutar pruebas.
 
+---
 
-En el paso a paso se genero el archivo requeriments.txt, pero ahora estoy corriendo este comando para ajustar algunos detalles
-pip install -r requirements.txt
+## 📌 Ajustes para `requirements.txt`
 
-Datos para ajustar el archivo requirements.txt
-(venv) @guswill24 ➜ /workspaces/JuegoBricks (main) $ pytest --version
-pytest 8.3.5
-El archivo debe quedar asi de acuero a lo que requiere nuestro software:
+Para garantizar compatibilidad con las versiones usadas en el proyecto, el archivo `requirements.txt` debe incluir:
+
+📂 **Archivo:** `requirements.txt`
+```txt
 pygame==2.5.0
 pytest==8.3.5
+```
 
+Puedes verificar la versión instalada de `pytest` con el siguiente comando:
 
-Ejecutar el script
-Cada vez que agregues un nuevo archivo Python, ejecuta este script:
+```bash
+pytest --version
+```
+📌 **Salida esperada:**
+```
+pytest 8.3.5
+```
 
-python generate_tests.py
-
-Despues de todos los cambios el flujo de trabajo ya funciona
-solo se ejecuta pytest y el corre las acciones del workflows
