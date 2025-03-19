@@ -26,12 +26,19 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest-html pdfkit
+
+      - name: 📦 Instalar wkhtmltopdf para conversión a PDF
+        run: sudo apt-get update && sudo apt-get install -y wkhtmltopdf
 
       - name: 🛠️ Generar archivo de pruebas unitarias si no existe
         run: python generate_tests.py
 
-      - name: 🧪 Ejecutar pruebas unitarias con Pytest
-        run: PYTHONPATH=. pytest -v --disable-warnings --junitxml=report.xml
+      - name: 🧪 Ejecutar pruebas unitarias con Pytest y generar HTML
+        run: PYTHONPATH=. pytest -v --disable-warnings --html=report.html
+
+      - name: 🖨️ Convertir reporte HTML a PDF
+        run: python -c "import pdfkit; pdfkit.from_file('report.html', 'report.pdf')"
 
       - name: 🚀 Notificar en Pull Request sobre nueva prueba generada
         if: github.event_name == 'pull_request'
@@ -46,8 +53,8 @@ jobs:
                 body: "⚠️ Se ha generado un nuevo template de prueba unitaria. **Por favor, revisa y ejecuta las pruebas antes de continuar con la integración.** 🚀"
               })       
 
-      - name: 📤 Subir reporte de pruebas a GitHub Actions
+      - name: 📤 Subir reporte de pruebas en PDF a GitHub Actions
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-report
-          path: report.xml
+          name: pytest-report-pdf
+          path: report.pdf
