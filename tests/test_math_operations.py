@@ -1,6 +1,6 @@
 # tests/test_math_operations.py
 import pytest
-from math_operations import add, subtract, multiply, divide
+from src.math_operations import add, subtract, multiply, divide
 
 # ==============================
 # Prueba 1: Suma

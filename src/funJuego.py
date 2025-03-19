@@ -1,5 +1,5 @@
 def iniciar_juego():
-    print("¡Iniciando juego!")
+    print("¡Iniciando juego!!!")
 
 def mover_personaje(direccion):
     print(f"Moviendo personaje hacia {direccion}")

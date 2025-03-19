@@ -1,7 +1,7 @@
 import pytest
 #from dados import *
 import random
-from dados import lanzar_dado, jugar_turno, determinar_ganador
+from src.dados import lanzar_dado, jugar_turno, determinar_ganador
 
 # ==============================
 # Prueba 1: Lanzar Dado
