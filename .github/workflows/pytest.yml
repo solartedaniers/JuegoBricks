@@ -30,7 +30,7 @@
           run: PYTHONPATH=. pytest --junitxml=report.xml
 
         - name: Generar Template Prueba Unitaria
-          run: python3 generate_test.py
+          run: PYTHONPATH=. python3 generate_test.py
        
         - name: Notificar en Pull Request sobre nueva prueba generada
           if: github.event_name == 'pull_request'
