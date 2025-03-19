@@ -26,15 +26,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install pytest-html pdfkit
-
-      - name: 📦 Instalar wkhtmltopdf para conversión a PDF
-        run: sudo apt-get update && sudo apt-get install -y wkhtmltopdf
-
-      - name: 🛠️ Verificar instalación de wkhtmltopdf
-        run: |
-          which wkhtmltopdf
-          wkhtmltopdf --version
+          pip install pytest-html
 
       - name: 🛠️ Generar archivo de pruebas unitarias si no existe
         run: python generate_tests.py
@@ -45,26 +37,11 @@ jobs:
           echo "✅ Pruebas ejecutadas, verificando existencia de report.html"
           ls -lah
 
-      
-      - name: 🛠️ Verificar existencia de report.html
-        run: |
-          if [ -f "report.html" ]; then
-            echo "✅ report.html existe.";
-          else
-            echo "❌ Error: report.html no se generó. Abortando...";
-            exit 1;
-          fi
-
-
-      - name: 🖨️ Convertir reporte HTML a PDF
-        run: |
-          python -c "
-          import pdfkit, os;
-          path = os.path.abspath('report.html');
-          print(f'📄 Intentando convertir {path} a PDF...');
-          if not os.path.exists(path):
-              raise FileNotFoundError(f'❌ Error: {path} no fue encontrado');
-          pdfkit.from_file(path, 'report.pdf', configuration=pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf'))"
+      - name: 📤 Subir reporte de pruebas en HTML a GitHub Actions
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-report-html
+          path: report.html
 
       - name: 🚀 Notificar en Pull Request sobre nueva prueba generada
         if: github.event_name == 'pull_request'
@@ -77,10 +54,4 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 body: "⚠️ Se ha generado un nuevo template de prueba unitaria. **Por favor, revisa y ejecuta las pruebas antes de continuar con la integración.** 🚀"
-              })       
-
-      - name: 📤 Subir reporte de pruebas en PDF a GitHub Actions
-        uses: actions/upload-artifact@v4
-        with:
-          name: pytest-report-pdf
-          path: report.pdf
+              })
