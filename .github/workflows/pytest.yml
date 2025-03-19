@@ -35,7 +35,13 @@ jobs:
         run: python generate_tests.py
 
       - name: 🧪 Ejecutar pruebas unitarias con Pytest y generar HTML
-        run: PYTHONPATH=. pytest -v --disable-warnings --html=report.html
+        run: |
+          PYTHONPATH=. pytest -v --disable-warnings --html=report.html
+          ls -lah report.html  # Verifica que el archivo HTML existe
+      
+      - name: 🛠️ Verificar existencia de report.html
+        run: |
+          if [ ! -f report.html ]; then echo "❌ Error: report.html no fue generado"; exit 1; fi
 
       - name: 🖨️ Convertir reporte HTML a PDF
         run: |
