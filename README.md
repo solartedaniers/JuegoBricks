@@ -1,68 +1,30 @@
-# 🧪 Pruebas Unitarias con Pytest en JuegoBricks
+# Proyecto JuegoBricks
 
-## 📦 Instalación de Dependencias
+**Autor:** Daniers Alexander  Solarte Limas
+**Asignatura:** Ingeniería de Software  
+**Universidad Cooperativa de Colombia**
 
-Ejecuta los siguientes comandos para instalar las herramientas necesarias:
+Este proyecto implementa pruebas unitarias automatizadas con Pytest y GitHub Actions.  
+Incluye la configuración del workflow en `.github/workflows/pytest.yml` y la ejecución continua de pruebas.
 
-```bash
-pip install pytest
-pip install pygame
-```
+## 📁 Estructura del Proyecto
 
----
+- **src/**: scripts del proyecto
+- **tests/**: pruebas unitarias
+- **.github/workflows/**: automatización de pruebas
 
-## ⚙️ Configuración de GitHub Actions
+## 📂 Scripts adicionales implementados
 
-Se activó la ejecución automática de pruebas unitarias en **GitHub Actions** al crear el archivo de configuración:
+Se añadieron 3 scripts adicionales con sus respectivas pruebas unitarias:
 
-📂 **Ubicación:**  
-`.github/workflows/pytest.yml`
+- `numeros_utiles.py`: funciones para verificar si un número es par o primo
+- `juego_adivina.py`: lógica para adivinar un número secreto
+- `notificaciones.py`: sistema básico de envío de notificaciones
 
----
+## ✔ Estado de las pruebas
 
-## 🚀 Ejecutar Pruebas Unitarias
+Todas las pruebas fueron ejecutadas con éxito utilizando Pytest y también desde GitHub Actions.
 
-Para ejecutar las pruebas unitarias manualmente, usa el siguiente comando:
+## 📆 Última actualización
 
-```bash
-PYTHONPATH=. pytest -v --disable-warnings
-```
-
----
-
-## ❌ Exclusión de Archivos en Pytest
-
-Si deseas **excluir archivos específicos** de las pruebas unitarias, configura el archivo `pytest.ini` de la siguiente manera:
-
-📂 **Archivo:** `pytest.ini`
-```ini
-[pytest]
-norecursedirs = tests/excluded_tests
-addopts = --ignore=tests/test_bricks.py
-```
-- `norecursedirs`: Evita que pytest recorra ciertos directorios.
-- `addopts --ignore`: Ignora archivos específicos al ejecutar pruebas.
-
----
-
-## 📌 Ajustes para `requirements.txt`
-
-Para garantizar compatibilidad con las versiones usadas en el proyecto, el archivo `requirements.txt` debe incluir:
-
-📂 **Archivo:** `requirements.txt`
-```txt
-pygame==2.5.0
-pytest==8.3.5
-```
-
-Puedes verificar la versión instalada de `pytest` con el siguiente comando:
-
-```bash
-pytest --version
-```
-📌 **Salida esperada:**
-```
-pytest 8.3.5
-```
-
-Última actualización: Thu Mar 20 16:26:47 UTC 2025
+Marzo 2025
